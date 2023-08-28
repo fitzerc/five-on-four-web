@@ -1,25 +1,29 @@
-import type { Component } from 'solid-js';
+import { createSignal, type Component } from 'solid-js';
 
-import logo from './logo.svg';
-import styles from './App.module.css';
+import { Navbar } from './Navigation/Navbar';
+import logo from './assets/images/CRL-Logo.jpg'
 
 const App: Component = () => {
+  const user = {
+    first_name: 'Chris',
+    last_name: 'Fitzer',
+    email: 'fitzer.c@gmail.com',
+    image_url: 'https://media.licdn.com/dms/image/C4E03AQHdOj_dHWj77Q/profile-displayphoto-shrink_200_200/0/1646058389402?e=1698883200&v=beta&t=6zyPAY9kRVtyLFH5guX5gkVJNmAqKobftlqlomVs5-o',
+  }
+  
+  const [menuState, setMenuState] = createSignal(false);
+  const [userMenuState, setUserMenuState] = createSignal(false);
+
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
+     <div class="min-h-full">
+        <Navbar
+          user={user}
+          menuState={menuState()}
+          setMenuState={setMenuState}
+          userMenuState={userMenuState()}
+          setUserMenuState={setUserMenuState}
+          logo={logo}
+        />
     </div>
   );
 };
