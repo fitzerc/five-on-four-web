@@ -77,7 +77,13 @@ export function LoginModal(props: LoginModalProps){
                   </div>
                   <div class="text-center text-content my-1">
                     No Account?
-                    <a class="text-blue-600 dark:text-blue-500 hover:underline" href="/">{"  "}Sign Up</a>
+                    <A
+                      onClick={() => props.onCancel}
+                      class="text-blue-600 dark:text-blue-500 hover:underline"
+                      href="/signup"
+                    >
+                      {"  "}Sign Up
+                    </A>
                   </div>
                 </div>
               </div>

@@ -6,6 +6,7 @@ import { Route, Routes } from '@solidjs/router';
 import { HomePage } from './Pages/HomePage/HomePage';
 import { TeamsPage } from './Pages/TeamsPage/TeamsPage';
 import { LeaguesPage } from './Pages/LeaguesPage/LeaguesPage';
+import { SignUp } from './Pages/SignUp/SignUp';
 
 const App: Component = () => {
   const user = {
@@ -33,6 +34,7 @@ const App: Component = () => {
           <Route path="/" component={HomePage} />
           <Route path="/leagues" component={LeaguesPage} />
           <Route path="/teams" component={TeamsPage} />
+          <Route path="/signup" component={SignUp} />
         </Routes>
         
     </div>
