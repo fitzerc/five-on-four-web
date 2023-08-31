@@ -1,7 +1,6 @@
 import { Setter, Show, createSignal, onCleanup, onMount } from "solid-js"
 import { FiveOnFourUser } from "../../User/user";
 import { A } from "@solidjs/router";
-import { Portal } from "solid-js/web";
 import "./Navbar.css";
 import { LoginInfo, LoginModal } from "../LoginModal/LoginModal";
 
@@ -64,7 +63,7 @@ export function Navbar(props: NavbarProps) {
           }
         />
 
-        <nav class="bg-gray-800 dark:bg-gray-500">
+        <nav class="bg-content">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center">
@@ -75,12 +74,11 @@ export function Navbar(props: NavbarProps) {
                   </div>
                   <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                      {/*Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"*/}
-                      <A href="/leagues" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Leagues</A>
-                      <A href="/teams" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Teams</A>
-                      <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
-                      <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
-                      <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Sponsors</a>
+                      <A href="/leagues" class="text-bkg hover:bg-bkg hover:text-content rounded-md px-3 py-2 text-sm font-medium">Leagues</A>
+                      <A href="/teams" class="text-bkg hover:bg-bkg hover:text-content rounded-md px-3 py-2 text-sm font-medium">Teams</A>
+                      <a href="#" class="text-bkg hover:bg-bkg hover:text-content rounded-md px-3 py-2 text-sm font-medium">About</a>
+                      <a href="#" class="text-bkg hover:bg-bkg hover:text-content rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
+                      <a href="#" class="text-bkg hover:bg-bkg hover:text-content rounded-md px-3 py-2 text-sm font-medium">Sponsors</a>
                     </div>
                   </div>
                 </div>
@@ -90,7 +88,7 @@ export function Navbar(props: NavbarProps) {
                     <Show when={signedIn} fallback={
                       <button
                         type="button"
-                        class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        class="icon-btn"
                         onClick={() => setSignupModalShown(true)}
                       >
                         <span class="absolute -inset-1.5"></span>
@@ -102,7 +100,7 @@ export function Navbar(props: NavbarProps) {
                     }>
                       <button
                         type="button"
-                        class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        class="icon-btn"
                       >
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">View notifications</span>
@@ -118,7 +116,7 @@ export function Navbar(props: NavbarProps) {
                         <div>
                         <button
                           type="button"
-                          class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                          class="relative flex max-w-xs items-center rounded-full bg-content text-sm focus:outline-none focus:ring-2 focus:ring-accent-1 focus:ring-offset-2 focus:ring-offset-accent-2"
                           id="user-menu-button"
                           aria-expanded="false"
                           aria-haspopup="true"
@@ -145,16 +143,15 @@ export function Navbar(props: NavbarProps) {
                       */}
                       <Show when={props.userMenuState}>
                         <div ref={userMenuDivRef!}
-                            class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-content py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu"
                             aria-orientation="vertical"
                             aria-labelledby="user-menu-button"
                             tabindex="-1"
                         >
-                          {/* Active: "bg-gray-100", Not Active: "" */}
-                          <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                          <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                          <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                          <a href="#" class="block px-4 py-2 text-sm text-bkg hover:text-accent-1" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                          <a href="#" class="block px-4 py-2 text-sm text-bkg hover:text-accent-1" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                          <a href="#" class="block px-4 py-2 text-sm text-bkg hover:text-accent-1" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                         </div>
                     </Show>
                   </div>
@@ -165,7 +162,7 @@ export function Navbar(props: NavbarProps) {
               {/* Mobile menu button */}
               <button
                 type="button"
-                class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                class="relative inline-flex items-center justify-center rounded-md bg-bkg p-2 text-content hover:bg-accent-1 hover:text-accent-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-content"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
                 ref={menuBtnRef!}
@@ -193,18 +190,17 @@ export function Navbar(props: NavbarProps) {
         <Show when={props.menuState}>
             <div ref={menuDivRef!} class="md:hidden" id="mobile-menu">
               <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                <A href="/leagues" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Leagues</A>
-                <A href="/teams" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Teams</A>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">About</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Sponsors</a>
+                <A href="/leagues" class="mobile-menu-link">Leagues</A>
+                <A href="/teams" class="mobile-menu-link">Teams</A>
+                <a href="#" class="mobile-menu-link">About</a>
+                <a href="#" class="mobile-menu-link">Calendar</a>
+                <a href="#" class="mobile-menu-link">Sponsors</a>
               </div>
-              <div class="border-t border-gray-700 pb-3 pt-4">
+              <div class="border-t border-accent-1 pb-3 pt-4">
                 <Show when={signedIn} fallback={
                   <a
                     href='#'
-                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    class="block rounded-md px-3 py-2 text-base font-medium text-bkg hover:text-accent-1"
                     onClick={() => {
                         setSignupModalShown(!signupModalShown());
                         props.setMenuState(false);
@@ -219,10 +215,10 @@ export function Navbar(props: NavbarProps) {
                       <img class="h-10 w-10 rounded-full" src={props.user.image_url} alt=""/>
                     </div>
                     <div class="ml-3">
-                      <div class="text-base font-medium leading-none text-white">{props.user.first_name + ' ' + props.user.last_name}</div>
-                      <div class="text-sm font-medium leading-none text-gray-400">{props.user.email}</div>
+                      <div class="text-base font-medium leading-none text-bkg">{props.user.first_name + ' ' + props.user.last_name}</div>
+                      <div class="text-sm font-medium leading-none text-bkg">{props.user.email}</div>
                     </div>
-                    <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <button type="button" class="ml-auto flex-shrink-0 icon-btn">
                       <span class="absolute -inset-1.5"></span>
                       <span class="sr-only">View notifications</span>
                       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -231,9 +227,9 @@ export function Navbar(props: NavbarProps) {
                     </button>
                   </div>
                   <div class="mt-3 space-y-1 px-2">
-                    <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your Profile</a>
-                    <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-                    <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Logout</a>
+                    <a href="#" class="mobile-menu-link">Your Profile</a>
+                    <a href="#" class="mobile-menu-link">Settings</a>
+                    <a href="#" class="mobile-menu-link">Logout</a>
                   </div>
                 </Show>
               </div>

@@ -19,7 +19,7 @@ const App: Component = () => {
   const [userMenuState, setUserMenuState] = createSignal(false);
 
   return (
-     <div class="min-h-full">
+     <div class="min-h-full h-screen bg-bkg">
         <Navbar
           user={user}
           menuState={menuState()}

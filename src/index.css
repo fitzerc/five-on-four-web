@@ -1,6 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bkg: 18 32 60;
+    --color-content: 214 216 222;
+    --color-accent-2: 171 188 221;
+    --color-accent-1: 0 21 64;
+    --color-accent-3: 0 21 64;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bkg: 214 216 222;
+    --color-content: 18 32 60;
+    --color-accent-1: 171 188 221;
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,3 +33,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
