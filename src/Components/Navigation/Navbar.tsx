@@ -3,7 +3,7 @@ import { FiveOnFourUser } from "../../User/user";
 import { A } from "@solidjs/router";
 import { Portal } from "solid-js/web";
 import "./Navbar.css";
-import { LoginModal } from "../LoginModal/LoginModal";
+import { LoginInfo, LoginModal } from "../LoginModal/LoginModal";
 
 export interface NavbarProps {
     user: FiveOnFourUser;
@@ -12,6 +12,10 @@ export interface NavbarProps {
     userMenuState: boolean;
     setUserMenuState: Setter<boolean>;
     logo: string;
+}
+
+function PerformLogin(loginInfo: LoginInfo): void {
+  console.log(loginInfo);
 }
 
 export function Navbar(props: NavbarProps) {
@@ -50,18 +54,16 @@ export function Navbar(props: NavbarProps) {
 
     return (
       <>
-        <Show when={signupModalShown()}>
-          <Portal>
-            <LoginModal
-              onCancel={setSignupModalShown(false)}
-              onLogin={(name: any) => {
-                  console.log(name);
-                  setSignupModalShown(false);
-                }
-              }
-            />
-          </Portal>
-        </Show>
+        <LoginModal
+          showModal={signupModalShown()}
+          onCancel={setSignupModalShown(false)}
+          onLogin={(loginInfo: LoginInfo) => {
+              setSignupModalShown(false);
+              PerformLogin(loginInfo);
+            }
+          }
+        />
+
         <nav class="bg-gray-800 dark:bg-gray-500">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div class="flex h-16 items-center justify-between">
@@ -89,9 +91,10 @@ export function Navbar(props: NavbarProps) {
                       <button
                         type="button"
                         class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        onClick={() => setSignupModalShown(true)}
                       >
                         <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">View notifications</span>
+                        <span class="sr-only">Sign Up/Login</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                         </svg>
