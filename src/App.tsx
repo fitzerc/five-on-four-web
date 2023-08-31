@@ -1,7 +1,11 @@
 import { createSignal, type Component } from 'solid-js';
 
-import { Navbar } from './Navigation/Navbar';
+import { Navbar } from './Components/Navigation/Navbar';
 import logo from './assets/images/CRL-Logo.jpg'
+import { Route, Routes } from '@solidjs/router';
+import { HomePage } from './Pages/HomePage/HomePage';
+import { TeamsPage } from './Pages/TeamsPage/TeamsPage';
+import { LeaguesPage } from './Pages/LeaguesPage/LeaguesPage';
 
 const App: Component = () => {
   const user = {
@@ -24,6 +28,13 @@ const App: Component = () => {
           setUserMenuState={setUserMenuState}
           logo={logo}
         />
+        
+        <Routes>
+          <Route path="/" component={HomePage} />
+          <Route path="/leagues" component={LeaguesPage} />
+          <Route path="/teams" component={TeamsPage} />
+        </Routes>
+        
     </div>
   );
 };
