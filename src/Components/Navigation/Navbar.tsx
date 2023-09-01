@@ -162,7 +162,7 @@ export function Navbar(props: NavbarProps) {
               {/* Mobile menu button */}
               <button
                 type="button"
-                class="relative inline-flex items-center justify-center rounded-md bg-bkg p-2 text-content hover:bg-accent-1 hover:text-accent-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-content"
+                class="relative inline-flex items-center justify-center rounded-md bg-content p-2 text-bkg hover:bg-bkg hover:text-content focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-1"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
                 ref={menuBtnRef!}

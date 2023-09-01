@@ -1,6 +1,7 @@
 import { A } from "@solidjs/router";
 import { Show } from "solid-js";
 import { Portal } from "solid-js/web";
+import "./LoginModal.css"
 
 interface LoginModalProps {
     showModal: boolean;
@@ -51,10 +52,10 @@ export function LoginModal(props: LoginModalProps){
                           <p class="text-sm text-bkg">Fill out the form to create an account.</p>
                         </div>
                         <div class="mt-2">
-                          <input class="pl-1 bg-bkg" placeholder="Email" />
+                          <input class="login-input" type="text" placeholder="Email" />
                         </div>
                         <div class="mt-2">
-                          <input class="pl-1 bg-bkg" placeholder='Password' />
+                          <input class="login-input" type="password" placeholder="Password" />
                         </div>
                       </div>
                     </div>
