@@ -1,6 +1,7 @@
 import { For, createSignal } from "solid-js";
 import { Announcements } from "../../Components/Announcements/Announcements";
 import { GameCard, GameInfo } from "../../Components/Game/GameCard";
+import { useUserContext } from "../../Components/UserContext";
 
 export function HomePage() {
     const inputannouncements = [
@@ -16,7 +17,7 @@ export function HomePage() {
         }
     ]
 
-  const [announcements, setAnnouncements] = createSignal(inputannouncements);
+    const [announcements, setAnnouncements] = createSignal(inputannouncements);
 
     const inputgames: GameInfo[] = [
         {
@@ -42,16 +43,16 @@ export function HomePage() {
         },
     ]
 
-  const [games, setGames] = createSignal(inputgames);
-
+    const [games, setGames] = createSignal(inputgames);
+  
     return (
         <>
             <div class="my-4 flex justify-center gap-1">
-            <For each={games()}>
-                {game =>
+                <For each={games()}>
+                { game =>
                     <GameCard game_info={game} />
                 }
-            </For>
+                </For>
             </div>
             <Announcements announcements={announcements()} />
         </>

@@ -1,4 +1,4 @@
-import { createSignal, type Component } from 'solid-js';
+import { createSignal, type Component, createContext, useContext, Context } from 'solid-js';
 
 import { Navbar } from './Components/Navigation/Navbar';
 import logo from './assets/images/CRL-Logo.jpg'
@@ -7,35 +7,58 @@ import { HomePage } from './Pages/HomePage/HomePage';
 import { TeamsPage } from './Pages/TeamsPage/TeamsPage';
 import { LeaguesPage } from './Pages/LeaguesPage/LeaguesPage';
 import { SignUp } from './Pages/SignUp/SignUp';
+import { UserContext, UserContextProvider } from './Components/UserContext';
+import { SetStoreFunction, createStore } from 'solid-js/store';
+import { AuthHttpService } from './services/auth_service';
+
+export class FoFService {
+  svc_name: string = '';
+  svc: any;
+}
+
+export const AppContext = createContext();
+
+export function AppContextProvider(props: any) {
+  const [services, setServices] = createStore<FoFService[]>([
+    {
+      svc_name: 'api_service',
+      svc: new AuthHttpService(),
+    },
+  ]);
+  
+  return (
+    <AppContext.Provider value={{services, setServices}}>
+      {props.children}
+    </AppContext.Provider>
+  );
+}
+
+export function useAppContext() {
+  return useContext(AppContext);
+}
 
 const App: Component = () => {
-  const user = {
-    first_name: 'Chris',
-    last_name: 'Fitzer',
-    email: 'fitzer.c@gmail.com',
-    image_url: 'https://media.licdn.com/dms/image/C4E03AQHdOj_dHWj77Q/profile-displayphoto-shrink_200_200/0/1646058389402?e=1698883200&v=beta&t=6zyPAY9kRVtyLFH5guX5gkVJNmAqKobftlqlomVs5-o',
-  }
-  
   const [menuState, setMenuState] = createSignal(false);
   const [userMenuState, setUserMenuState] = createSignal(false);
 
   return (
      <div class="min-h-full h-screen bg-bkg">
-        <Navbar
-          user={user}
-          menuState={menuState()}
-          setMenuState={setMenuState}
-          userMenuState={userMenuState()}
-          setUserMenuState={setUserMenuState}
-          logo={logo}
-        />
+        <UserContextProvider>
+          <Navbar
+            menuState={menuState()}
+            setMenuState={setMenuState}
+            userMenuState={userMenuState()}
+            setUserMenuState={setUserMenuState}
+            logo={logo}
+          />
         
-        <Routes>
-          <Route path="/" component={HomePage} />
-          <Route path="/leagues" component={LeaguesPage} />
-          <Route path="/teams" component={TeamsPage} />
-          <Route path="/signup" component={SignUp} />
-        </Routes>
+          <Routes>
+            <Route path="/" component={HomePage} />
+            <Route path="/leagues" component={LeaguesPage} />
+            <Route path="/teams" component={TeamsPage} />
+            <Route path="/signup" component={SignUp} />
+          </Routes>
+        </UserContextProvider>
         
     </div>
   );
