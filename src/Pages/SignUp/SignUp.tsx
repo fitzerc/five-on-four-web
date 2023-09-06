@@ -23,15 +23,15 @@ export function SignUp() {
             <div class="mb-4">
               <label class="text-content text-sm font-bold mb-2" for="username">
                     Email
-                </label>
-                <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-content leading-tight focus:outline-none focus:shadow-outline focus:shadow-outline-bkg"
-                  id="email"
-                  type="text"
-                  value={email()}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email" />
-              </div>
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-content leading-tight focus:outline-none focus:shadow-outline focus:shadow-outline-bkg"
+                id="email"
+                type="text"
+                value={email()}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email" />
+             </div>
               <div class="mb-6 align-middle">
                 <label class="block text-content text-sm font-bold mb-2" for="password">
                     Password

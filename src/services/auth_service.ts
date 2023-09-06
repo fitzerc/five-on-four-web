@@ -22,7 +22,7 @@ export class AuthHttpService {
         first_name: r.first_name,
         last_name: r.last_name,
         token: r.token,
-        image_url: '',
+        picture: r.picture,
       };
     });
   }
@@ -39,13 +39,13 @@ export class AuthHttpService {
 
     const res = await fetch(`${this.base_url}/login`, req);
 
-    return await res.json().then(r => {
+    return await res.json().then<FiveOnFourUser>(r => {
       return {
         email: r.email,
         first_name: r.first_name,
         last_name: r.last_name,
         token: r.token,
-        image_url: '',
+        picture: r.picture,
       };
     });
   }
@@ -61,13 +61,13 @@ export class AuthHttpService {
 
       const res = await fetch(`${this.base_url}/refresh`, req);
 
-      return await res.json().then(r => {
+      return await res.json().then<FiveOnFourUser>(r => {
         return {
           email: r.email,
           first_name: r.first_name,
           last_name: r.last_name,
           token: r.token,
-          image_url: '',
+          picture: r.picture,
         };
     });
   }
@@ -83,5 +83,40 @@ export class AuthHttpService {
     };
 
     await fetch('http://localhost:1323/signup', req);
+  }
+  
+  public async UpdateUser(newUser: FiveOnFourUser): Promise<FiveOnFourUser> {
+    let req = {
+      method: "PUT",
+      body: JSON.stringify(newUser),
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    };
+
+    const res = await fetch(`${this.api_url}/users`, req);
+    return await res.json().then(r => {
+      return {
+        email: r.email,
+        first_name: r.first_name,
+        last_name: r.last_name,
+        token: r.token,
+        picture: r.picture,
+      };
+    });
+  }
+
+  public async UpdateProfilePicture(pic: Blob): Promise<void> {
+    let req = {
+      method: "PUT",
+      body: pic,
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    };
+
+    await fetch(`${this.api_url}/users/image`, req);
   }
 }

@@ -10,6 +10,7 @@ import { SignUp } from './Pages/SignUp/SignUp';
 import { UserContext, UserContextProvider } from './Components/UserContext';
 import { SetStoreFunction, createStore } from 'solid-js/store';
 import { AuthHttpService } from './services/auth_service';
+import { ProfilePage } from './Pages/ProfilePage/ProfilePage';
 
 export class FoFService {
   svc_name: string = '';
@@ -19,7 +20,7 @@ export class FoFService {
 export const AppContext = createContext();
 
 export function AppContextProvider(props: any) {
-  const [services, setServices] = createStore<FoFService[]>([
+  const [services, set_services] = createStore<FoFService[]>([
     {
       svc_name: 'api_service',
       svc: new AuthHttpService(),
@@ -27,7 +28,7 @@ export function AppContextProvider(props: any) {
   ]);
   
   return (
-    <AppContext.Provider value={{services, setServices}}>
+    <AppContext.Provider value={{services, set_services}}>
       {props.children}
     </AppContext.Provider>
   );
@@ -57,6 +58,7 @@ const App: Component = () => {
             <Route path="/leagues" component={LeaguesPage} />
             <Route path="/teams" component={TeamsPage} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/profile" component={ProfilePage} />
           </Routes>
         </UserContextProvider>
         

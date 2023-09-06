@@ -57,7 +57,7 @@ export function Navbar(props: NavbarProps) {
     const new_user = await api_svc.Login(loginInfo);
     setUser(new_user);
   }
-
+  
   const handleLogout = async () => {
     const clear_user = await api_svc.Logout();
     setUser(clear_user);
@@ -84,7 +84,7 @@ export function Navbar(props: NavbarProps) {
               <div class="flex items-center">
                 <div class="flex-shrink-0">
                   <A href="/">
-                      <img class="h-12 w-12 rounded-full" src={props.logo} alt="Your Company"/>
+                      <img class="h-12 w-12 rounded-full" src={props.logo} alt="Senior Rhino Logo"/>
                   </A>
                 </div>
                 <div class="hidden md:block">
@@ -142,7 +142,17 @@ export function Navbar(props: NavbarProps) {
                         }}>
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">Open user menu</span>
-                        <img class="h-8 w-8 rounded-full" src={user.image_url} alt=""/>
+                        <Show
+                          when={user.picture}
+                          fallback={
+                            <img class="h-8 w-8 rounded-full" src={props.logo} />
+                            }
+                          >
+                          <img
+                            class="h-8 w-8 rounded-full"
+                            src={'data:image/png;base64,' + user.picture}
+                          />
+                        </Show>
                       </button>
                     </div>
   
@@ -164,7 +174,8 @@ export function Navbar(props: NavbarProps) {
                           aria-labelledby="user-menu-button"
                           tabindex="-1"
                       >
-                        <a href="#" class="block px-4 py-2 text-sm text-bkg hover:text-accent-1" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                        {/* On profile click, menu doesn't close */}
+                        <A href="/profile" class="block px-4 py-2 text-sm text-bkg hover:text-accent-1" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</A>
                         <a href="#" class="block px-4 py-2 text-sm text-bkg hover:text-accent-1" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
                         <a href="#" onClick={handleLogout} class="block px-4 py-2 text-sm text-bkg hover:text-accent-1" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                       </div>
@@ -227,7 +238,16 @@ export function Navbar(props: NavbarProps) {
               }>
                 <div class="flex items-center px-5">
                   <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full" src={user.image_url} alt=""/>
+                    <Show when={user.picture}
+                      fallback={
+                        <img class="h-10 w-10 rounded-full" src={props.logo} />
+                      }
+                    >
+                      <img
+                        class="h-10 w-10 rounded-full"
+                        src={'data:image/png;base64,' + user.picture}
+                      />
+                    </Show>
                   </div>
                   <div class="ml-3">
                     <div class="text-base font-medium leading-none text-bkg">{user.first_name + ' ' + user.last_name}</div>
@@ -242,7 +262,7 @@ export function Navbar(props: NavbarProps) {
                   </button>
                 </div>
                 <div class="mt-3 space-y-1 px-2">
-                  <a href="#" class="mobile-menu-link">Your Profile</a>
+                  <A href="/profile" class="mobile-menu-link">Your Profile</A>
                   <a href="#" class="mobile-menu-link">Settings</a>
                   <a href="#" onClick={handleLogout} class="mobile-menu-link">Logout</a>
                 </div>
