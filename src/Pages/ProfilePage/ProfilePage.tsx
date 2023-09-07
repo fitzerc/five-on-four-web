@@ -21,6 +21,7 @@ export function ProfilePage() {
     //TODO: toaster to confirm save?
     const saveProfile = async (): Promise<void> => {
         if (image()) {
+            console.log('saving?')
             await api_svc.UpdateProfilePicture(image() as Blob);
         }
 
@@ -33,6 +34,7 @@ export function ProfilePage() {
         }
         
         const tmp_user = await api_svc.UpdateUser(user);
+        setUser(tmp_user);
     };
 
     return (
