@@ -11,6 +11,7 @@ import { UserContext, UserContextProvider } from './Components/UserContext';
 import { SetStoreFunction, createStore } from 'solid-js/store';
 import { AuthHttpService } from './services/auth_service';
 import { ProfilePage } from './Pages/ProfilePage/ProfilePage';
+import { LeagueHttpService } from './services/league_service';
 
 export class FoFService {
   svc_name: string = '';
@@ -24,6 +25,10 @@ export function AppContextProvider(props: any) {
     {
       svc_name: 'api_service',
       svc: new AuthHttpService(),
+    },
+    {
+      svc_name: 'league_service',
+      svc: new LeagueHttpService(),
     },
   ]);
   

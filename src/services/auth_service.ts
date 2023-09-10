@@ -1,5 +1,5 @@
 import { LoginInfo } from "../Components/LoginModal/LoginModal";
-import { FiveOnFourUser } from "../User/user";
+import { FiveOnFourUser } from "../Models/user";
 
 export class AuthHttpService {
   private readonly base_url = 'http://localhost:1323';
@@ -46,6 +46,7 @@ export class AuthHttpService {
         last_name: r.last_name,
         token: r.token,
         picture: r.picture,
+        roles: r.roles,
       };
     });
   }
@@ -62,12 +63,14 @@ export class AuthHttpService {
       const res = await fetch(`${this.base_url}/refresh`, req);
 
       return await res.json().then<FiveOnFourUser>(r => {
+        console.log('token', this.ParseJwt(r.token));
         return {
           email: r.email,
           first_name: r.first_name,
           last_name: r.last_name,
           token: r.token,
           picture: r.picture,
+          roles: r.roles,
         };
     });
   }
@@ -118,5 +121,15 @@ export class AuthHttpService {
     };
 
     await fetch(`${this.api_url}/users/image`, req);
+  }
+  
+  public ParseJwt(token: string): string {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
   }
 }

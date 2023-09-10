@@ -1,4 +1,4 @@
-import { Show, createSignal } from "solid-js";
+import { Show, createSignal, onMount } from "solid-js";
 import { FoFService, useAppContext } from "../../App";
 import { useUserContext } from "../../Components/UserContext";
 import { AuthHttpService } from "../../services/auth_service";
@@ -11,17 +11,24 @@ export function ProfilePage() {
     const [image, set_image] = createSignal<File>();
     const [first_name, setFirstName] = createSignal<string>(user.first_name);
     const [last_name, setLastName] = createSignal<string>(user.last_name);
-
+    
+    
     const fileSelected = (files: FileList | null) => {
         if (files && files.length > 0) {
             set_image(files[0]);
         }
     };
     
+    onMount(async () => {
+        if (!user.token) {
+            const tmpUser = await api_svc.Refresh();
+            setUser(tmpUser)
+        }
+    });
+    
     //TODO: toaster to confirm save?
     const saveProfile = async (): Promise<void> => {
         if (image()) {
-            console.log('saving?')
             await api_svc.UpdateProfilePicture(image() as Blob);
         }
 
@@ -40,7 +47,7 @@ export function ProfilePage() {
     return (
         <div class="relative transform my-4 max-w-xs mx-auto">
             <div class="mb-4">
-              <label class="text-content text-sm font-bold mb-2" for="username">
+              <label class="text-content text-sm font-bold mb-2" for="first_name">
                     First Name
               </label>
               <input
@@ -52,7 +59,7 @@ export function ProfilePage() {
                 placeholder="First Name" />
             </div>
             <div class="mb-4">
-              <label class="text-content text-sm font-bold mb-2" for="username">
+              <label class="text-content text-sm font-bold mb-2" for="last_name">
                     Last Name
               </label>
               <input
@@ -76,15 +83,16 @@ export function ProfilePage() {
                     />
                 </div>
                 <Show when={image()}>
-                    <img src={URL.createObjectURL(image() as Blob)} />
+                    <img class="h-20 w-20 rounded-full" src={URL.createObjectURL(image() as Blob)} />
                 </Show>
-                <div class="mb-6 align-middle">
+                <div class="my-6 align-middle">
                     <button
                         class="bg-content hover:bg-bkg hover:text-content text-bkg font-bold rounded p-2 ring-accent-1 hover:ring-1 hover:shadow-outline hover:ring-content focus:ring-accent-1 focus:shadow-outline"
                         onClick={saveProfile}
                     >
                         Save
                     </button>
+                    <button onClick={() => console.log(user)}>Ok</button>
                 </div>
         </div>
     )

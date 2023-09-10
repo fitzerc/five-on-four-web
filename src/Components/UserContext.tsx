@@ -1,6 +1,6 @@
 import { createStore } from 'solid-js/store'
 import { createContext, useContext } from "solid-js";
-import { FiveOnFourUser } from '../User/user';
+import { FiveOnFourUser } from '../Models/user';
 
 export const UserContext = createContext();
 

@@ -1,5 +1,5 @@
 import { Setter, Show, createSignal, onCleanup, onMount, useContext } from "solid-js"
-import { FiveOnFourUser } from "../../User/user";
+import { FiveOnFourUser } from "../../Models/user";
 import { A } from "@solidjs/router";
 import "./Navbar.css";
 import { LoginInfo, LoginModal } from "../LoginModal/LoginModal";
