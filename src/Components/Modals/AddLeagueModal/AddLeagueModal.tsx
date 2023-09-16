@@ -10,6 +10,7 @@ interface AddLeagueModalProps {
 
 export function AddLeagueModal(props: AddLeagueModalProps) {
     const [leagueName, setLeagueName] = createSignal('');
+    const [leagueDescription, setLeagueDescription] = createSignal('');
     
     return (
         <Show when={props.showModal}>
@@ -39,6 +40,14 @@ export function AddLeagueModal(props: AddLeagueModalProps) {
                                                     type="text"
                                                     placeholder="League Name" />
                                             </div>
+                                            <div class="mt-2">
+                                                <input
+                                                    class="league-input"
+                                                    value={leagueDescription()}
+                                                    onChange={e => setLeagueDescription(e.target.value)}
+                                                    type="text"
+                                                    placeholder="League Description" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -49,8 +58,9 @@ export function AddLeagueModal(props: AddLeagueModalProps) {
                                     <button
                                         class="mt-3 inline-flex w-full justify-center rounded-md bg-bkg px-3 py-2 text-sm font-semibold text-content shadow-sm ring-1 ring-inset ring-content hover:bg-content hover:text-bkg sm:mt-0 sm:w-auto"
                                         onClick={() => {
-                                            props.onSave(leagueName());
+                                            props.onSave(leagueName(), leagueDescription());
                                             setLeagueName('');
+                                            setLeagueDescription('');
                                         }}>
                                             Save
                                         </button>

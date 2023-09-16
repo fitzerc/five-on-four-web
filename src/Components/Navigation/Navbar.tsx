@@ -1,8 +1,7 @@
 import { Setter, Show, createSignal, onCleanup, onMount, useContext } from "solid-js"
-import { FiveOnFourUser } from "../../Models/user";
 import { A } from "@solidjs/router";
 import "./Navbar.css";
-import { LoginInfo, LoginModal } from "../LoginModal/LoginModal";
+import { LoginInfo, LoginModal } from "../Modals/LoginModal/LoginModal";
 import { useUserContext } from "../UserContext";
 import { AppContext, FoFService, useAppContext } from "../../App";
 import { AuthHttpService } from "../../services/auth_service";

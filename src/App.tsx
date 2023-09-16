@@ -7,11 +7,13 @@ import { HomePage } from './Pages/HomePage/HomePage';
 import { TeamsPage } from './Pages/TeamsPage/TeamsPage';
 import { LeaguesPage } from './Pages/LeaguesPage/LeaguesPage';
 import { SignUp } from './Pages/SignUp/SignUp';
-import { UserContext, UserContextProvider } from './Components/UserContext';
-import { SetStoreFunction, createStore } from 'solid-js/store';
+import { UserContextProvider } from './Components/UserContext';
+import { createStore } from 'solid-js/store';
 import { AuthHttpService } from './services/auth_service';
 import { ProfilePage } from './Pages/ProfilePage/ProfilePage';
 import { LeagueHttpService } from './services/league_service';
+import { LeaguePage } from './Pages/LeaguePage/LeaguePage';
+import { TeamHttpService } from './services/team_service';
 
 export class FoFService {
   svc_name: string = '';
@@ -30,6 +32,10 @@ export function AppContextProvider(props: any) {
       svc_name: 'league_service',
       svc: new LeagueHttpService(),
     },
+    {
+      svc_name: 'team_service',
+      svc: new TeamHttpService(),
+    }
   ]);
   
   return (
@@ -61,6 +67,7 @@ const App: Component = () => {
           <Routes>
             <Route path="/" component={HomePage} />
             <Route path="/leagues" component={LeaguesPage} />
+            <Route path="/leagues/:id" component={LeaguePage} />
             <Route path="/teams" component={TeamsPage} />
             <Route path="/signup" component={SignUp} />
             <Route path="/profile" component={ProfilePage} />

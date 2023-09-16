@@ -1,4 +1,4 @@
-import { LoginInfo } from "../Components/LoginModal/LoginModal";
+import { LoginInfo } from "../Components/Modals/LoginModal/LoginModal";
 import { FiveOnFourUser } from "../Models/user";
 
 export class AuthHttpService {

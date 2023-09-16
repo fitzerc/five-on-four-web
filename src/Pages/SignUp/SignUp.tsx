@@ -1,5 +1,5 @@
 import { createSignal } from "solid-js";
-import { LoginInfo } from "../../Components/LoginModal/LoginModal"
+import { LoginInfo } from "../../Components/Modals/LoginModal/LoginModal"
 import { useNavigate, Navigator } from "@solidjs/router";
 import { FoFService, useAppContext } from "../../App";
 import { AuthHttpService } from "../../services/auth_service";

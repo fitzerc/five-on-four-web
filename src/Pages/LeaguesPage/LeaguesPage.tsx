@@ -1,11 +1,12 @@
 import { For, Show, createSignal, onCleanup, onMount } from "solid-js"
-import { AddLeagueModal } from "../../Components/AddLeagueModal/AddLeagueModal";
+import { AddLeagueModal } from "../../Components/Modals/AddLeagueModal/AddLeagueModal";
 import { FoFService, useAppContext } from "../../App";
 import { AuthHttpService } from "../../services/auth_service";
 import { useUserContext } from "../../Components/UserContext";
 import { FiveOnFourUser, isAdmin } from "../../Models/user";
 import { LeagueHttpService } from "../../services/league_service";
 import { League } from "../../Models/league";
+import { LeaguesCarousel } from "../../Components/Carousel/LeaguesCarousel";
 
 
 
@@ -44,13 +45,13 @@ export function LeaguesPage() {
         document.removeEventListener('click', handleOutsideAddLeagueClick);
     });
     
-    const onAddLeague = async (name: string) => {
+    const onAddLeague = async (name: string, description: string) => {
         setShowAddLeague(false);
-        await league_svc.AddLeague(name);
+        await league_svc.AddLeague(name, description);
         const tmpLeagues = await league_svc.GetLeagues();
         setLeagues(tmpLeagues);
     }
-
+    
     return (
     <>
         <AddLeagueModal
@@ -58,33 +59,20 @@ export function LeaguesPage() {
             onSave={onAddLeague}
             onCancel={() => setShowAddLeague(false)}
         />
-        <div class="relative transform my-4 max-w-xs mx-auto">
-            <div class="mb-4">
-                <h2>Cenior Rhino Leagues</h2>
-            </div>
-            <div class="mb-4">
-                <div>List</div>
-                <div>Of</div>
-                <div>Leagues</div>
+        <div class="my-4">
+            <LeaguesCarousel leagues={leagues()} />
 
-                <For each={leagues()}>
-                    {league =>
-                        <div>
-                            <h3>{league.league_name}</h3>
-                        </div>
-                    }
-                </For>
-
-                <Show when={user && isAdmin(user.roles)}>
-                    <button
-                        type="button"
-                        class="inline-flex w-full justify-center rounded-md bg-content px-3 py-2 text-sm font-semibold text-bkg ring-1 ring-inset ring-content shadow-sm hover:bg-bkg hover:text-content sm:ml-3 sm:w-auto"
-                        onClick={() => setShowAddLeague(true)}
-                    >
-                        Add League
-                    </button>
-                </Show>
+            <Show when={user && isAdmin(user.roles)}>
+            <div class="mt-4 text-center">
+                <button
+                    type="button"
+                    class="inline-flex w-full justify-center rounded-md bg-content px-3 py-2 text-sm font-semibold text-bkg ring-1 ring-inset ring-content shadow-sm hover:bg-bkg hover:text-content sm:ml-3 sm:w-auto"
+                    onClick={() => setShowAddLeague(true)}
+                >
+                    Add League
+                </button>
             </div>
+            </Show>
         </div>
     </>
     )
